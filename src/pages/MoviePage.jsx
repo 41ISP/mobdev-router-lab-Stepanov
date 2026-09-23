@@ -1,8 +1,10 @@
-import { getMovieById } from '../data/movies.js';
+import { movies } from '../data/movies.js';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function MoviePage() {
-  const id = 'inception';
-  const movie = getMovieById(id);
+  const navigate = useNavigate()
+  const {id} = useParams();
+  const movie = movies.find((e) => e.id === id);
 
   if (!movie) {
     return <div className="inline-error">Фильм не найден.</div>;
@@ -34,8 +36,8 @@ export default function MoviePage() {
             <strong>{movie.director}</strong>
           </div>
 
-          <button className="secondary-btn" type="button">
-            ← Назад
+          <button className="secondary-btn" type="button" onClick={() => navigate(-1)}>
+              ← Назад
           </button>
         </div>
       </div>
